@@ -1,7 +1,7 @@
 {
   "name": "vs-chatgpt",
   "displayName": "VS ChatGPT",
-  "description": "VS-ChatGPT is a plugin for Visual Studio Code that integrates the powerful ChatGPT language model into the popular code editor. With VS-ChatGPT, developers can leverage the capabilities of ChatGPT to generatde snippets, uggest completions for open-ended questions, and even write entire functions or modules.",
+  "description": "VS ChatGPT is a plugin for Visual Studio Code that integrates the powerful ChatGPT language model into the popular code editor. With VS-ChatGPT, developers can leverage the capabilities of ChatGPT to generatde snippets, uggest completions for open-ended questions, and even write entire functions or modules.",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.74.0"
@@ -10,16 +10,48 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:vs-chatgpt.helloWorld"
+    "onCommand:vs-chatgpt.completions"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "vs-chatgpt.helloWorld",
-        "title": "Hello World"
+        "command": "vs-chatgpt.completions",
+        "title": "ChatGPT: Text completions"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "VS ChatGPT",
+      "properties": {
+        "vs-chatgpt.apikey": {
+          "type": "string",
+          "default": null,
+          "description": "Your OpenAI secret API key."
+        },
+        "vs-chatgpt.model": {
+          "type": "string",
+          "default": "text-davinci-003",
+          "enum": [
+            "text-davinci-003",
+            "text-curie-001",
+            "text-babbage-001",
+            "text-ada-001"
+          ],
+          "enumDescriptions": [
+            "Most capable GPT-3 model. Can do any task the other models can do, often with higher quality, longer output and better instruction-following.",
+            "Very capable, but faster and lower cost than Davinci.",
+            "Capable of straightforward tasks, very fast, and lower cost.",
+            "Capable of very simple tasks, usually the fastest model in the GPT-3 series, and lowest cost."
+          ],
+          "description": "The OpenAI API is powered by a family of models with different capabilities and price points."
+        },
+        "vs-chatgpt.max_tokens": {
+          "type": "number",
+          "default": 2048,
+          "description": "The maximum number of tokens to generate in the completion. Most models have a context length of 2048 tokens (except for the newest models, which support 4000)."
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -41,5 +73,9 @@
     "mocha": "^10.1.0",
     "typescript": "^4.9.3",
     "@vscode/test-electron": "^2.2.0"
+  },
+  "dependencies": {
+    "axios": "^1.2.2",
+    "dayjs": "^1.11.7"
   }
 }

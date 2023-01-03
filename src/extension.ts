@@ -1,26 +1,97 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
+import axios from "axios";
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+  const outputChannel = vscode.window.createOutputChannel("OpenAI");
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "vs-chatgpt" is now active!');
+  let disposable = vscode.commands.registerCommand(
+    "vs-chatgpt.completions",
+    async () => {
+      const config = vscode.workspace.getConfiguration("vs-chatgpt");
+      const apikey: string | undefined = config.get("apikey");
+      const model: string | undefined = config.get("model");
+      const maxTokens: string | undefined = config.get("max_tokens");
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('vs-chatgpt.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from VS ChatGPT!');
-	});
+      if (!apikey || (apikey && apikey.length === 0)) {
+        return vscode.window.showErrorMessage(
+          "You must add the OpenAI secret API key!"
+        );
+      }
 
-	context.subscriptions.push(disposable);
+      if (!model || (model && model.length === 0)) {
+        return vscode.window.showErrorMessage("You must set a model!");
+      }
+
+      if (!maxTokens || (maxTokens && Number(maxTokens) === 0)) {
+        return vscode.window.showErrorMessage(
+          "You must set the maximum number of tokens!"
+        );
+      }
+
+      const inputText = await vscode.window.showInputBox({
+        value: "",
+        placeHolder: "Write your text...",
+        validateInput: (text) => {
+          return (text || "").length === 0 ? "Write a message!" : null;
+        },
+      });
+
+      if ((inputText || "").length === 0) {
+        return;
+      }
+
+      outputChannel.appendLine(
+        "------------------------------------------------------------"
+      );
+      outputChannel.appendLine("INPUT: " + inputText);
+      outputChannel.show();
+
+      try {
+        const data = await vscode.window.withProgress(
+          {
+            location: vscode.ProgressLocation.Notification,
+            title: "Thinking...",
+          },
+          async () => {
+            const payload = {
+              model,
+              prompt: inputText,
+              max_tokens: Number(maxTokens),
+              temperature: 0,
+            };
+
+            console.log(payload);
+
+            const response = await axios.post(
+              "https://api.openai.com/v1/completions",
+              payload,
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: "Bearer " + apikey,
+                },
+              }
+            );
+
+            return response.data;
+          }
+        );
+
+        const choice = data.choices[0];
+        outputChannel.appendLine(choice.text);
+      } catch (err: any) {
+        console.error(err);
+
+        if (err.response.status === 401) {
+          vscode.window.showErrorMessage("Invalid API Key");
+        } else {
+          vscode.window.showErrorMessage("Something went wrong.");
+        }
+      }
+    }
+  );
+
+  context.subscriptions.push(disposable);
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() {}
