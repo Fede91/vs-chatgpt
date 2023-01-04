@@ -1,8 +1,20 @@
 {
   "name": "vs-chatgpt",
   "displayName": "VS ChatGPT",
-  "description": "VS ChatGPT is a plugin for Visual Studio Code that integrates the powerful ChatGPT language model into the popular code editor. With VS-ChatGPT, developers can leverage the capabilities of ChatGPT to generatde snippets, uggest completions for open-ended questions, and even write entire functions or modules.",
+  "description": "VS ChatGPT is a plugin for Visual Studio Code that integrates the powerful ChatGPT language model into the popular code editor. With VS-ChatGPT, developers can leverage the capabilities of ChatGPT to generate snippets, suggest completions for open-ended questions, and even write entire functions or modules.",
   "version": "0.0.1",
+  "keywords": [
+    "OpenAI",
+    "ChatGPT",
+    "AI",
+    "generate snippets",
+    "suggest",
+    "ask",
+    "questions"
+  ],
+  "author": {
+    "name": "Fedev"
+  },
   "engines": {
     "vscode": "^1.74.0"
   },
@@ -77,5 +89,16 @@
   "dependencies": {
     "axios": "^1.2.2",
     "dayjs": "^1.11.7"
-  }
+  },
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#0099fa",
+    "theme": "dark"
+  },
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Fede91/vs-chatgpt"
+  },
+  "homepage": "https://github.com/Fede91/vs-chatgpt/blob/main/README.md"
 }
