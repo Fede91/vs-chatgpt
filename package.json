@@ -100,5 +100,6 @@
     "type": "git",
     "url": "https://github.com/Fede91/vs-chatgpt"
   },
-  "homepage": "https://github.com/Fede91/vs-chatgpt/blob/main/README.md"
+  "homepage": "https://github.com/Fede91/vs-chatgpt/blob/main/README.md",
+  "publisher": "0xfedev"
 }
