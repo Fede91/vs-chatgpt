@@ -4,7 +4,7 @@ VS ChatGPT is a plugin for Visual Studio Code that integrates the powerful ChatG
 
 ## Usage
 
-Run the comand `ChatGPT: Text completions` to run _OpenAI GPT-3_
+Run the command `ChatGPT: Text completions` to run _OpenAI GPT-3_
 
 ![run chatgpt](images/vs-chatgpt.gif)
 
@@ -19,3 +19,25 @@ This extension contributes the following settings:
 - `vs-chatgpt.apikey`: Your OpenAI secret API key.
 - `vs-chatgpt.model`: OpenAI GPT-3 model ([Read more about models](https://beta.openai.com/docs/models/gpt-3)).
 - `vs-chatgpt.max_tokens`: The maximum number of tokens to generate in the completion. Most models have a context length of 2048 tokens (except for the newest models, which support 4000) ([Read more about tokens](https://beta.openai.com/docs/models/gpt-3)).
+
+## Shortcuts
+
+Default shortcuts:
+
+- Windows: `alt+ctrl+shift+g`
+- Mac: `alt+cmd+shift+g`
+
+## Release Notes
+
+### 1.1.0
+
+- Request #1: Added shortcusts.
+- New feature: Send the selected text to ChatGPT via context menu or command palette.
+
+![run via context menu on text selection](images/vs-chatgpt-context.gif)
+
+![run via command palette on text selection](images/vs-chatgpt-text-sel-command.gif)
+
+### 1.0.0
+
+First release.
