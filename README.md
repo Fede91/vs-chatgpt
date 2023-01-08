@@ -6,7 +6,12 @@ VS ChatGPT is a plugin for Visual Studio Code that integrates the powerful ChatG
 
 Run the command `ChatGPT: Text completions` to run _OpenAI GPT-3_
 
-![run chatgpt](images/vs-chatgpt.gif)
+![run chatgpt](images/demo.gif)
+
+Alternative:
+ `Select Text - Right click - ChatGPT: Text Completions`
+ Use Windows Shortcut : `alt+ctrl+shift+g`
+ Use Mac Shortcut: `alt+cmd+shift+g`
 
 ## Requirements
 
