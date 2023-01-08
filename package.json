@@ -32,6 +32,21 @@
         "title": "ChatGPT: Text completions"
       }
     ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "vs-chatgpt.completions",
+          "when": "editorHasSelection"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "vs-chatgpt.completions",
+        "key": "alt+ctrl+shift+g",
+        "mac": "alt+cmd+shift+g"
+      }
+    ],
     "configuration": {
       "title": "VS ChatGPT",
       "properties": {

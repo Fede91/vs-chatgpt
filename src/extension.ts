@@ -28,8 +28,18 @@ export function activate(context: vscode.ExtensionContext) {
         );
       }
 
+      let defaultValue = "";
+
+      const editor = vscode.window.activeTextEditor;
+      if (editor) {
+        // Text editor is opened
+        const selection = editor.selection;
+
+        defaultValue = editor.document.getText(selection);
+      }
+
       const inputText = await vscode.window.showInputBox({
-        value: "",
+        value: defaultValue,
         placeHolder: "Write your text...",
         validateInput: (text) => {
           return (text || "").length === 0 ? "Write a message!" : null;
@@ -59,8 +69,6 @@ export function activate(context: vscode.ExtensionContext) {
               max_tokens: Number(maxTokens),
               temperature: 0,
             };
-
-            console.log(payload);
 
             const response = await axios.post(
               "https://api.openai.com/v1/completions",
