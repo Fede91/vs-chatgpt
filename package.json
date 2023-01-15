@@ -25,7 +25,8 @@
     "onCommand:vs-chatgpt.completions",
     "onCommand:vs-chatgpt.explain_regex",
     "onCommand:vs-chatgpt.explain_code",
-    "onCommand:vs-chatgpt.generate_unit_tests"
+    "onCommand:vs-chatgpt.generate_unit_tests",
+    "onCommand:vs-chatgpt.comment_code"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -45,6 +46,10 @@
       {
         "command": "vs-chatgpt.generate_unit_tests",
         "title": "ChatGPT: Generate unit tests"
+      },
+      {
+        "command": "vs-chatgpt.comment_code",
+        "title": "ChatGPT: Add comments"
       }
     ],
     "menus": {
@@ -63,6 +68,10 @@
         },
         {
           "command": "vs-chatgpt.generate_unit_tests",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "vs-chatgpt.comment_code",
           "when": "editorHasSelection"
         }
       ]
@@ -118,6 +127,11 @@
           "type": "string",
           "default": "Write unit test for this code snippet",
           "description": "Command to ask to generate unit tests for a function."
+        },
+        "vs-chatgpt.comment_code_cmd": {
+          "type": "string",
+          "default": "Add comments to each line of this code snippet",
+          "description": "Command to ask to add comments to code snippet."
         }
       }
     }

@@ -5,13 +5,21 @@ export type Config = {
   explainRegexCmd: string;
   explainCodeSnippetCmd: string;
   generateUnitTestCmd: string;
+  commentCodeCmd: string;
 };
 
-export type OpenAIPayload = {
+export type OpenAICompletionPayload = {
   model: string;
   prompt: string;
   max_tokens: number;
   temperature: number;
+};
+
+export type OpenAIEditPayload = {
+  model: string;
+  input: string;
+  temperature: number;
+  instruction: string;
 };
 
 export type OpenAIResponse = {

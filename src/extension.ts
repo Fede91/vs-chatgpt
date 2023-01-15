@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { getCompletion } from "./libs/openai";
+import { getCompletion, getEdit } from "./libs/openai";
 import strings from "./config/strings";
 
 import {
@@ -188,10 +188,61 @@ ${selectedText}`;
     }
   );
 
+  let disposableAddComments = vscode.commands.registerCommand(
+    "vs-chatgpt.comment_code",
+    async () => {
+      try {
+        const { apikey, maxTokens, model, commentCodeCmd } = getConfig();
+
+        const selectedText = getSelectedText();
+
+        if (selectedText.length === 0) {
+          throw new Error("You must highlight the code snippet!");
+        }
+
+        const prompt = `${commentCodeCmd}
+
+${selectedText}`;
+
+        const data = await vscode.window.withProgress(
+          {
+            location: vscode.ProgressLocation.Notification,
+            title: strings.NOTIFICATION_TITLE,
+          },
+          async () => {
+            const payload = {
+              model: "text-davinci-edit-001",
+              input: selectedText,
+              instruction: commentCodeCmd,
+              temperature: 0,
+            };
+
+            return await getEdit(apikey, payload);
+          }
+        );
+
+        const choice = data.choices[0];
+
+        const editor = vscode.window.activeTextEditor;
+        if (editor && editor.selection.active) {
+          editor.edit((editBuilder) => {
+            editBuilder.replace(editor.selection, choice.text);
+          });
+        } else {
+          showNewPrompt(outputChannel, prompt);
+          outputChannel.appendLine(choice.text);
+        }
+      } catch (err) {
+        handleErrors(err);
+      }
+    }
+  );
+
   context.subscriptions.push(disposableCompletions);
   context.subscriptions.push(disposableExplainRegex);
   context.subscriptions.push(disposableExplainSnippet);
   context.subscriptions.push(disposableGenerateUnitTests);
+  context.subscriptions.push(disposableAddComments);
 }
 
 export function deactivate() {}
