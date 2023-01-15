@@ -7,6 +7,9 @@ export const getConfig = (): Config => {
   const model: string | undefined = config.get("model");
   const maxTokens: string | undefined = config.get("max_tokens");
   const explainRegexCmd: string | undefined = config.get("explain_regex_cmd");
+  const explainCodeSnippetCmd: string | undefined = config.get(
+    "explain_code_snippet_cmd"
+  );
 
   if (!apikey || (apikey && apikey.length === 0)) {
     throw new Error("You must add the OpenAI secret API key!");
@@ -24,11 +27,19 @@ export const getConfig = (): Config => {
     throw new Error("You must set a regular expression command!");
   }
 
+  if (
+    !explainCodeSnippetCmd ||
+    (explainCodeSnippetCmd && explainCodeSnippetCmd.length === 0)
+  ) {
+    throw new Error("You must set an explain code snippet command!");
+  }
+
   return {
     apikey,
     model,
     maxTokens,
     explainRegexCmd,
+    explainCodeSnippetCmd,
   };
 };
 

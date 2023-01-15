@@ -3,6 +3,7 @@ export type Config = {
   model: string;
   maxTokens: string;
   explainRegexCmd: string;
+  explainCodeSnippetCmd: string;
 };
 
 export type OpenAIPayload = {

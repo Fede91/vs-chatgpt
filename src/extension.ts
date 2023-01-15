@@ -102,8 +102,52 @@ ${selectedText}`;
     }
   );
 
+  let disposableExplainSnippet = vscode.commands.registerCommand(
+    "vs-chatgpt.explain_code",
+    async () => {
+      try {
+        const { apikey, maxTokens, model, explainCodeSnippetCmd } = getConfig();
+
+        const selectedText = getSelectedText();
+
+        if (selectedText.length === 0) {
+          throw new Error("You must highlight the regular expression!");
+        }
+
+        const prompt = `${explainCodeSnippetCmd}
+
+${selectedText}`;
+
+        showNewPrompt(outputChannel, prompt);
+
+        const data = await vscode.window.withProgress(
+          {
+            location: vscode.ProgressLocation.Notification,
+            title: strings.NOTIFICATION_TITLE,
+          },
+          async () => {
+            const payload = {
+              model,
+              prompt,
+              max_tokens: Number(maxTokens),
+              temperature: 0,
+            };
+
+            return await getCompletion(apikey, payload);
+          }
+        );
+
+        const choice = data.choices[0];
+        outputChannel.appendLine(choice.text);
+      } catch (err) {
+        handleErrors(err);
+      }
+    }
+  );
+
   context.subscriptions.push(disposableCompletions);
   context.subscriptions.push(disposableExplainRegex);
+  context.subscriptions.push(disposableExplainSnippet);
 }
 
 export function deactivate() {}

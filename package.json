@@ -23,7 +23,8 @@
   ],
   "activationEvents": [
     "onCommand:vs-chatgpt.completions",
-    "onCommand:vs-chatgpt.explain_regex"
+    "onCommand:vs-chatgpt.explain_regex",
+    "onCommand:vs-chatgpt.explain_code"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -35,6 +36,10 @@
       {
         "command": "vs-chatgpt.explain_regex",
         "title": "ChatGPT: Explain regular expression"
+      },
+      {
+        "command": "vs-chatgpt.explain_code",
+        "title": "ChatGPT: Explain code snippet"
       }
     ],
     "menus": {
@@ -45,6 +50,10 @@
         },
         {
           "command": "vs-chatgpt.explain_regex",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "vs-chatgpt.explain_code",
           "when": "editorHasSelection"
         }
       ]
@@ -90,6 +99,11 @@
           "type": "string",
           "default": "Explain this regular expression",
           "description": "Command to ask for an explanation of a regular expression."
+        },
+        "vs-chatgpt.explain_code_snippet_cmd": {
+          "type": "string",
+          "default": "Explain this code snippet",
+          "description": "Command to ask for an explanation of a code snippet."
         }
       }
     }
