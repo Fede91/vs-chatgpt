@@ -8,6 +8,32 @@ Run the command `ChatGPT: Text completions` to run _OpenAI GPT-3_
 
 ![run chatgpt](images/vs-chatgpt.gif)
 
+### Commands
+
+#### **Explain Regular Expression**
+
+Ask OpenAI to explain a regular expression by selecting the code and running the command "ChatGPT: Explain regular expression."
+
+![explain regexp](images/vs-chatgpt-explain-regexp.gif)
+
+#### **Add comments to code snippet**
+
+Ask OpenAI to comment on the selected code by running the command "ChatGPT: Add comments."
+
+![add comments](images/vs-chatgpt-add-comments.gif)
+
+#### **Explain code snippet**
+
+Ask OpenAI to explain the selected code by running the command "ChatGPT: Explain code snippet."
+
+![explain code](images/vs-chatgpt-explain-code.gif)
+
+#### **Generate unit tests**
+
+Ask OpenAI to generate unit tests for the selected code by running the command "ChatGPT: Generate unit tests."
+
+![generate unit tests](images/vs-chatgpt-unit-tests.gif)
+
 ## Requirements
 
 To use VS ChatGPT you must have an [OpenAI account](https://beta.openai.com/) and have generated an [API Secret Key](https://beta.openai.com/account/api-keys).
@@ -28,6 +54,13 @@ Default shortcuts:
 - Mac: `alt+cmd+shift+g`
 
 ## Release Notes
+
+### 1.2.0
+
+- New feature: Explain Regular Expression
+- New feature: Add comments to code snippet
+- New feature: Explain code snippet
+- New feature: Generate unit tests
 
 ### 1.1.0
 
