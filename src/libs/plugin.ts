@@ -10,6 +10,9 @@ export const getConfig = (): Config => {
   const explainCodeSnippetCmd: string | undefined = config.get(
     "explain_code_snippet_cmd"
   );
+  const generateUnitTestCmd: string | undefined = config.get(
+    "generate_unit_test_cmd"
+  );
 
   if (!apikey || (apikey && apikey.length === 0)) {
     throw new Error("You must add the OpenAI secret API key!");
@@ -34,12 +37,20 @@ export const getConfig = (): Config => {
     throw new Error("You must set an explain code snippet command!");
   }
 
+  if (
+    !generateUnitTestCmd ||
+    (generateUnitTestCmd && generateUnitTestCmd.length === 0)
+  ) {
+    throw new Error("You must set a generate unit test command!");
+  }
+
   return {
     apikey,
     model,
     maxTokens,
     explainRegexCmd,
     explainCodeSnippetCmd,
+    generateUnitTestCmd,
   };
 };
 

@@ -111,7 +111,7 @@ ${selectedText}`;
         const selectedText = getSelectedText();
 
         if (selectedText.length === 0) {
-          throw new Error("You must highlight the regular expression!");
+          throw new Error("You must highlight the code snippet!");
         }
 
         const prompt = `${explainCodeSnippetCmd}
@@ -145,9 +145,53 @@ ${selectedText}`;
     }
   );
 
+  let disposableGenerateUnitTests = vscode.commands.registerCommand(
+    "vs-chatgpt.generate_unit_tests",
+    async () => {
+      try {
+        const { apikey, maxTokens, model, generateUnitTestCmd } = getConfig();
+
+        const selectedText = getSelectedText();
+
+        if (selectedText.length === 0) {
+          throw new Error("You must highlight the code snippet!");
+        }
+
+        const prompt = `${generateUnitTestCmd}
+
+${selectedText}`;
+
+        showNewPrompt(outputChannel, prompt);
+
+        const data = await vscode.window.withProgress(
+          {
+            location: vscode.ProgressLocation.Notification,
+            title: strings.NOTIFICATION_TITLE,
+          },
+          async () => {
+            const payload = {
+              model,
+              prompt,
+              max_tokens: Number(maxTokens),
+              temperature: 0,
+            };
+
+            return await getCompletion(apikey, payload);
+          }
+        );
+
+        const choice = data.choices[0];
+        outputChannel.appendLine(choice.text);
+      } catch (err) {
+        handleErrors(err);
+      }
+    }
+  );
+
   context.subscriptions.push(disposableCompletions);
   context.subscriptions.push(disposableExplainRegex);
   context.subscriptions.push(disposableExplainSnippet);
+  context.subscriptions.push(disposableGenerateUnitTests);
 }
 
 export function deactivate() {}

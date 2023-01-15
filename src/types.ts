@@ -4,6 +4,7 @@ export type Config = {
   maxTokens: string;
   explainRegexCmd: string;
   explainCodeSnippetCmd: string;
+  generateUnitTestCmd: string;
 };
 
 export type OpenAIPayload = {

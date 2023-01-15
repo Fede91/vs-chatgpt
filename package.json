@@ -24,7 +24,8 @@
   "activationEvents": [
     "onCommand:vs-chatgpt.completions",
     "onCommand:vs-chatgpt.explain_regex",
-    "onCommand:vs-chatgpt.explain_code"
+    "onCommand:vs-chatgpt.explain_code",
+    "onCommand:vs-chatgpt.generate_unit_tests"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -40,6 +41,10 @@
       {
         "command": "vs-chatgpt.explain_code",
         "title": "ChatGPT: Explain code snippet"
+      },
+      {
+        "command": "vs-chatgpt.generate_unit_tests",
+        "title": "ChatGPT: Generate unit tests"
       }
     ],
     "menus": {
@@ -54,6 +59,10 @@
         },
         {
           "command": "vs-chatgpt.explain_code",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "vs-chatgpt.generate_unit_tests",
           "when": "editorHasSelection"
         }
       ]
@@ -104,6 +113,11 @@
           "type": "string",
           "default": "Explain this code snippet",
           "description": "Command to ask for an explanation of a code snippet."
+        },
+        "vs-chatgpt.generate_unit_test_cmd": {
+          "type": "string",
+          "default": "Write unit test for this code snippet",
+          "description": "Command to ask to generate unit tests for a function."
         }
       }
     }
