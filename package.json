@@ -22,7 +22,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:vs-chatgpt.completions"
+    "onCommand:vs-chatgpt.completions",
+    "onCommand:vs-chatgpt.explain_regex"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -30,12 +31,20 @@
       {
         "command": "vs-chatgpt.completions",
         "title": "ChatGPT: Text completions"
+      },
+      {
+        "command": "vs-chatgpt.explain_regex",
+        "title": "ChatGPT: Explain regular expression"
       }
     ],
     "menus": {
       "editor/context": [
         {
           "command": "vs-chatgpt.completions",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "vs-chatgpt.explain_regex",
           "when": "editorHasSelection"
         }
       ]
@@ -76,6 +85,11 @@
           "type": "number",
           "default": 2048,
           "description": "The maximum number of tokens to generate in the completion. Most models have a context length of 2048 tokens (except for the newest models, which support 4000)."
+        },
+        "vs-chatgpt.explain_regex_cmd": {
+          "type": "string",
+          "default": "Explain this regular expression",
+          "description": "Command to ask for an explanation of a regular expression."
         }
       }
     }
