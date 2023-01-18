@@ -134,7 +134,46 @@
           "description": "Command to ask to add comments to code snippet."
         }
       }
-    }
+    },
+    "walkthroughs": [
+      {
+        "id": "vs-chatgpt-setup-api",
+        "title": "Setup VS ChatGPT",
+        "description": "Your first steps for setting up VS ChatGPT and bringing the capabilities of OpenAI directly into Visual Studio Code.",
+        "steps": [
+          {
+            "id": "vs-chatgpt-singup-openai",
+            "title": "OpenAI Account",
+            "description": "Create your OpenAI account.\n[Sign up](https://beta.openai.com/signup)",
+            "media": {
+              "image": "images/walkthroughs/vs-chatgpt-singup-openai.png",
+              "altText": "OpenAI Signup screen"
+            }
+          },
+          {
+            "id": "vs-chatgpt-gen-openai-api",
+            "title": "Generate OpenAI API Key",
+            "description": "Generate a new API key on your OpenAI account.\n[Go to OpenAI Profile](https://beta.openai.com/account/api-keys).",
+            "media": {
+              "image": "images/walkthroughs/vs-chatgpt-gen-openai-api.png",
+              "altText": "OpenAI Profile screen"
+            }
+          },
+          {
+            "id": "vs-chatgpt-setup-api-key",
+            "title": "Setup VS ChatGPT API Key",
+            "description": "Open the settings of VS ChatGPT extension and paste the API Key.",
+            "media": {
+              "image": "images/walkthroughs/vs-chatgpt-setup-api-key.png",
+              "altText": "VSCode settings screen"
+            },
+            "completionEvents": [
+              "onSettingChanged:vs-chatgpt.apikey"
+            ]
+          }
+        ]
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
