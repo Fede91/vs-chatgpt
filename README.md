@@ -34,6 +34,12 @@ Ask OpenAI to generate unit tests for the selected code by running the command "
 
 ![generate unit tests](images/vs-chatgpt-unit-tests.gif)
 
+#### **Generate JSDoc**
+
+Ask OpenAI to generate JsDoc for the selected code by running the command "ChatGPT: Generate JSDoc".
+
+![generate jsdoc](images/vs-chatgpt-jsdoc.gif)
+
 ## Requirements
 
 To use VS ChatGPT you must have an [OpenAI account](https://beta.openai.com/) and have generated an [API Secret Key](https://beta.openai.com/account/api-keys).
@@ -54,6 +60,14 @@ Default shortcuts:
 - Mac: `alt+cmd+shift+g`
 
 ## Release Notes
+
+### 1.2.0
+
+- New feature: Generate JSDoc
+
+### 1.3.0
+
+- Added step-by-step walkthroughs that guide the initial configuration of the plugin.
 
 ### 1.2.0
 
