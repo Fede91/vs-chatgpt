@@ -2,7 +2,7 @@
   "name": "vs-chatgpt",
   "displayName": "VS ChatGPT",
   "description": "VS ChatGPT is a plugin for Visual Studio Code that integrates the powerful ChatGPT language model into the popular code editor. With VS-ChatGPT, developers can leverage the capabilities of ChatGPT to generate snippets, suggest completions for open-ended questions, and even write entire functions or modules.",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "keywords": [
     "OpenAI",
     "ChatGPT",
