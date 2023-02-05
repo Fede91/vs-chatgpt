@@ -6,6 +6,7 @@ export type Config = {
   explainCodeSnippetCmd: string;
   generateUnitTestCmd: string;
   commentCodeCmd: string;
+  generateJSDocCmd: string;
 };
 
 export type OpenAICompletionPayload = {

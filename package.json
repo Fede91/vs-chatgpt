@@ -50,6 +50,10 @@
       {
         "command": "vs-chatgpt.comment_code",
         "title": "ChatGPT: Add comments"
+      },
+      {
+        "command": "vs-chatgpt.generate_jsdoc",
+        "title": "ChatGPT: Generate JSDoc"
       }
     ],
     "menus": {
@@ -73,6 +77,10 @@
         {
           "command": "vs-chatgpt.comment_code",
           "when": "editorHasSelection"
+        },
+        {
+          "command": "vs-chatgpt.generate_jsdoc",
+          "when": "editorHasSelection && resourceLangId == 'javascript' || resourceLangId == 'typescript'"
         }
       ]
     },
@@ -132,6 +140,11 @@
           "type": "string",
           "default": "Add comments to each line of this code snippet",
           "description": "Command to ask to add comments to code snippet."
+        },
+        "vs-chatgpt.generate_jsdoc_cmd": {
+          "type": "string",
+          "default": "Write a jsdoc for this code snippet",
+          "description": "Command to ask to generate jsdoc for a function."
         }
       }
     },
