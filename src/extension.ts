@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { getCompletion, getEdit } from "./libs/openai";
+import { formatPayload, getCompletion, getEdit } from "./libs/openai";
 import strings from "./config/strings";
 
 import {
@@ -40,19 +40,21 @@ export function activate(context: vscode.ExtensionContext) {
             title: strings.NOTIFICATION_TITLE,
           },
           async () => {
-            const payload = {
+            const payload = formatPayload(
               model,
-              prompt: String(inputText),
-              max_tokens: Number(maxTokens),
-              temperature: 0,
-            };
+              Number(maxTokens),
+              0,
+              String(inputText)
+            );
 
-            return await getCompletion(apikey, payload);
+            return await getCompletion(model, apikey, payload);
           }
         );
 
         const choice = data.choices[0];
-        outputChannel.appendLine(choice.text);
+        outputChannel.appendLine(
+          String(choice.text || choice.message?.content)
+        );
       } catch (err: any) {
         handleErrors(err);
       }
@@ -83,19 +85,16 @@ ${selectedText}`;
             title: strings.NOTIFICATION_TITLE,
           },
           async () => {
-            const payload = {
-              model,
-              prompt,
-              max_tokens: Number(maxTokens),
-              temperature: 0,
-            };
+            const payload = formatPayload(model, Number(maxTokens), 0, prompt);
 
-            return await getCompletion(apikey, payload);
+            return await getCompletion(model, apikey, payload);
           }
         );
 
         const choice = data.choices[0];
-        outputChannel.appendLine(choice.text);
+        outputChannel.appendLine(
+          String(choice.text || choice.message?.content)
+        );
       } catch (err) {
         handleErrors(err);
       }
@@ -126,19 +125,16 @@ ${selectedText}`;
             title: strings.NOTIFICATION_TITLE,
           },
           async () => {
-            const payload = {
-              model,
-              prompt,
-              max_tokens: Number(maxTokens),
-              temperature: 0,
-            };
+            const payload = formatPayload(model, Number(maxTokens), 0, prompt);
 
-            return await getCompletion(apikey, payload);
+            return await getCompletion(model, apikey, payload);
           }
         );
 
         const choice = data.choices[0];
-        outputChannel.appendLine(choice.text);
+        outputChannel.appendLine(
+          String(choice.text || choice.message?.content)
+        );
       } catch (err) {
         handleErrors(err);
       }
@@ -169,19 +165,16 @@ ${selectedText}`;
             title: strings.NOTIFICATION_TITLE,
           },
           async () => {
-            const payload = {
-              model,
-              prompt,
-              max_tokens: Number(maxTokens),
-              temperature: 0,
-            };
+            const payload = formatPayload(model, Number(maxTokens), 0, prompt);
 
-            return await getCompletion(apikey, payload);
+            return await getCompletion(model, apikey, payload);
           }
         );
 
         const choice = data.choices[0];
-        outputChannel.appendLine(choice.text);
+        outputChannel.appendLine(
+          String(choice.text || choice.message?.content)
+        );
       } catch (err) {
         handleErrors(err);
       }
@@ -226,11 +219,16 @@ ${selectedText}`;
         const editor = vscode.window.activeTextEditor;
         if (editor && editor.selection.active) {
           editor.edit((editBuilder) => {
-            editBuilder.replace(editor.selection, choice.text);
+            editBuilder.replace(
+              editor.selection,
+              String(choice.text || choice.message?.content)
+            );
           });
         } else {
           showNewPrompt(outputChannel, prompt);
-          outputChannel.appendLine(choice.text);
+          outputChannel.appendLine(
+            String(choice.text || choice.message?.content)
+          );
         }
       } catch (err) {
         handleErrors(err);
@@ -260,14 +258,9 @@ ${selectedText}`;
             title: strings.NOTIFICATION_TITLE,
           },
           async () => {
-            const payload = {
-              model,
-              prompt,
-              max_tokens: Number(maxTokens),
-              temperature: 0,
-            };
+            const payload = formatPayload(model, Number(maxTokens), 0, prompt);
 
-            return await getCompletion(apikey, payload);
+            return await getCompletion(model, apikey, payload);
           }
         );
 
@@ -280,11 +273,16 @@ ${selectedText}`;
               editor.selection.active.line < editor.selection.anchor.line
                 ? editor.selection.active
                 : editor.selection.anchor;
-            editBuilder.insert(position, choice.text + "\n");
+            editBuilder.insert(
+              position,
+              String(choice.text || choice.message?.content) + "\n"
+            );
           });
         } else {
           showNewPrompt(outputChannel, prompt);
-          outputChannel.appendLine(choice.text);
+          outputChannel.appendLine(
+            String(choice.text || choice.message?.content)
+          );
         }
       } catch (err) {
         handleErrors(err);

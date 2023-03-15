@@ -16,6 +16,13 @@ export type OpenAICompletionPayload = {
   temperature: number;
 };
 
+export type OpenAIChatCompletionPayload = {
+  model: string;
+  messages: { role: string; content: string }[];
+  max_tokens: number;
+  temperature: number;
+};
+
 export type OpenAIEditPayload = {
   model: string;
   input: string;
@@ -34,9 +41,13 @@ export type OpenAIResponse = {
   };
   created: number;
   choices: {
-    text: string;
+    text?: string;
+    message?: {
+      role: string;
+      content: string;
+    };
     finish_reason: string;
     index: number;
-    logprobs: string | null;
+    logprobs?: string | null;
   }[];
 };
